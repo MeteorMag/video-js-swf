@@ -364,6 +364,7 @@ package com.videojs{
         }
         public function set loop(pValue:Boolean):void {
             _loop = pValue;
+            _provider.loop = _loop;
         }
 
         public function get buffered():Number{

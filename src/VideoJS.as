@@ -21,6 +21,9 @@ package{
     import flash.utils.Timer;
     import flash.utils.setTimeout;
 
+    import org.mangui.hls.HLSSettings;
+    import org.mangui.hls.utils.Log;
+
     [SWF(backgroundColor="#000000", frameRate="60", width="480", height="270")]
     public class VideoJS extends Sprite{
 
@@ -30,6 +33,16 @@ package{
         private var _stageSizeTimer:Timer;
 
         public function VideoJS(){
+
+            HLSSettings.capLevelToStage = true;
+            HLSSettings.maxBufferLength = 120;
+            HLSSettings.useHardwareVideoDecoder = true;
+            HLSSettings.logInfo = false;
+
+            Log.info('verse videojs-swf');
+            Log.info('HLSSettings.capLevelToStage: ' + HLSSettings.capLevelToStage);
+            Log.info('HLSSettings.maxBufferLength: ' + HLSSettings.maxBufferLength);
+            Log.info('HLSSettings.useHardwareVideoDecoder: ' + HLSSettings.useHardwareVideoDecoder);
 
             _stageSizeTimer = new Timer(250);
             _stageSizeTimer.addEventListener(TimerEvent.TIMER, onStageSizeTimerTick);
@@ -310,6 +323,8 @@ package{
         }
 
         private function onSetPropertyCalled(pPropertyName:String = "", pValue:* = null):void{
+
+            Log.info(['onSetPropertyCalled', pPropertyName, pValue].join(' '));
             switch(pPropertyName){
                 case "duration":
                     _app.model.duration = Number(pValue);
